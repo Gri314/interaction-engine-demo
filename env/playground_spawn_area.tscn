@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://coj4o5mmjqa8a"]
+
+[ext_resource type="Texture2D" uid="uid://u4b7xv87uv7o" path="res://icon.svg" id="1_whpqu"]
+
+[node name="playground_spawn_area" type="Node3D"]
+
+[node name="floor" type="CSGBox3D" parent="."]
+size = Vector3(5, 1, 5)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54087, 2.89546)
+texture = ExtResource("1_whpqu")

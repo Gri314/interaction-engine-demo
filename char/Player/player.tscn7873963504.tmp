@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7iffuamgx2o"]
+
+[ext_resource type="Script" uid="uid://c0oju17lr7mj0" path="res://scripts/state_engine.gd" id="1_0eaaa"]
+[ext_resource type="Script" uid="uid://dpbfh06yhpvt8" path="res://char/Player/player.gd" id="1_xg7dc"]
+[ext_resource type="Script" uid="uid://dxi8r0l0w282b" path="res://scripts/movement.gd" id="2_hxndr"]
+[ext_resource type="Script" uid="uid://b7klwm40vdp8o" path="res://char/Player/combat_state.gd" id="2_xg7dc"]
+[ext_resource type="Script" uid="uid://cj1v186wmdp6d" path="res://char/Player/null_state.gd" id="4_hjy0o"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4flbx"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("StateEngine")]
+script = ExtResource("1_xg7dc")
+StateEngine = NodePath("StateEngine")
+
+[node name="default_collider" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_sh265")
+
+[node name="default_mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_4flbx")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("2_hxndr")
+Body = NodePath("..")
+metadata/_custom_type_script = "uid://dxi8r0l0w282b"
+
+[node name="StateEngine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_0eaaa")
+current_state = NodePath("NullState")
+metadata/_custom_type_script = "uid://c0oju17lr7mj0"
+
+[node name="CombatState" type="Node" parent="StateEngine" node_paths=PackedStringArray("NullState", "Movement", "ParentEngine")]
+script = ExtResource("2_xg7dc")
+NullState = NodePath("../NullState")
+Movement = NodePath("../../Movement")
+Accel = null
+Speed = null
+key = "Combat"
+ParentEngine = NodePath("..")
+metadata/_custom_type_script = "uid://b8olqqntrpg7x"
+
+[node name="NullState" type="Node" parent="StateEngine" node_paths=PackedStringArray("CombatState", "ParentEngine")]
+script = ExtResource("4_hjy0o")
+CombatState = NodePath("../CombatState")
+key = "NullState"
+ParentEngine = NodePath("..")
+metadata/_custom_type_script = "uid://b8olqqntrpg7x"

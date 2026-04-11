@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://claxg7ekq0ck"]
+
+[ext_resource type="Script" uid="uid://bxs0aq851ag0x" path="res://scripts/free_hands.gd" id="1_2qu1v"]
+[ext_resource type="Script" uid="uid://b8olqqntrpg7x" path="res://scripts/state.gd" id="2_6b6pu"]
+
+[node name="FreeHandsStateEngine" type="Node" node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_2qu1v")
+current_state = NodePath("MouseGestureSubState")
+key = "FreeHandsStateEngine"
+metadata/_custom_type_script = "uid://bxs0aq851ag0x"
+
+[node name="PrecisionAimSubState" type="Node" parent="." node_paths=PackedStringArray("ParentEngine")]
+script = ExtResource("2_6b6pu")
+ParentEngine = NodePath("..")
+metadata/_custom_type_script = "uid://b8olqqntrpg7x"
+
+[node name="MouseGestureSubState" type="Node" parent="." node_paths=PackedStringArray("ParentEngine")]
+script = ExtResource("2_6b6pu")
+key = "MouseGestureSubState"
+ParentEngine = NodePath("..")
+metadata/_custom_type_script = "uid://b8olqqntrpg7x"

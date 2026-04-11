@@ -1,0 +1,101 @@
+[gd_scene load_steps=11 format=3 uid="uid://b7iffuamgx2o"]
+
+[ext_resource type="Script" uid="uid://c0oju17lr7mj0" path="res://scripts/state_engine.gd" id="1_0eaaa"]
+[ext_resource type="Script" uid="uid://dpbfh06yhpvt8" path="res://char/Player/player.gd" id="1_xg7dc"]
+[ext_resource type="Script" uid="uid://dxi8r0l0w282b" path="res://scripts/movement.gd" id="2_hxndr"]
+[ext_resource type="Script" uid="uid://biu1d1at8v37u" path="res://char/Player/debug_hud.gd" id="2_kdsb5"]
+[ext_resource type="Script" uid="uid://b7klwm40vdp8o" path="res://char/Player/combat_state.gd" id="2_xg7dc"]
+[ext_resource type="Script" uid="uid://eql46n6oavud" path="res://scripts/camera_movement.gd" id="3_m17r5"]
+[ext_resource type="Script" uid="uid://cj1v186wmdp6d" path="res://char/Player/null_state.gd" id="4_hjy0o"]
+[ext_resource type="PackedScene" uid="uid://claxg7ekq0ck" path="res://scenes/states/free_hands_state_engine.tscn" id="8_qxxdn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4flbx"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("StateEngine")]
+script = ExtResource("1_xg7dc")
+StateEngine = NodePath("StateEngine")
+
+[node name="debug_hud" type="Control" parent="." node_paths=PackedStringArray("Body", "Cam")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_kdsb5")
+Body = NodePath("..")
+Cam = NodePath("../CameraPivot")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="debug_hud"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="debug_hud/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="debug_hud/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="debug_hud/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="debug_hud/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="default_collider" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_sh265")
+
+[node name="default_mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_4flbx")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
+
+[node name="View" type="Camera3D" parent="CameraPivot"]
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("2_hxndr")
+Body = NodePath("..")
+FRICT_PARAM = 2.0
+metadata/_custom_type_script = "uid://dxi8r0l0w282b"
+
+[node name="CameraMovement" type="Node" parent="." node_paths=PackedStringArray("Pivot")]
+script = ExtResource("3_m17r5")
+Pivot = NodePath("../CameraPivot")
+SENS_DAMPNER = 0.001
+metadata/_custom_type_script = "uid://eql46n6oavud"
+
+[node name="StateEngine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_0eaaa")
+current_state = NodePath("NullState")
+metadata/_custom_type_script = "uid://c0oju17lr7mj0"
+
+[node name="NullState" type="Node" parent="StateEngine" node_paths=PackedStringArray("CombatState", "ParentEngine")]
+script = ExtResource("4_hjy0o")
+CombatState = NodePath("../CombatState")
+key = "NullState"
+ParentEngine = NodePath("..")
+metadata/_custom_type_script = "uid://b8olqqntrpg7x"
+
+[node name="CombatState" type="Node" parent="StateEngine" node_paths=PackedStringArray("NullState", "Movement", "CamMovement", "ParentEngine")]
+script = ExtResource("2_xg7dc")
+NullState = NodePath("../NullState")
+Movement = NodePath("../../Movement")
+CamMovement = NodePath("../../CameraMovement")
+Accel = 10.0
+Speed = 5.0
+key = "Combat"
+ParentEngine = NodePath("..")
+metadata/_custom_type_script = "uid://b8olqqntrpg7x"
+
+[node name="FreeHandsStateEngine" parent="StateEngine" instance=ExtResource("8_qxxdn")]
