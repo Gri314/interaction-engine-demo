@@ -1,3 +1,14 @@
-[gd_scene format=3 uid="uid://vu720qjpdh4q"]
+[gd_scene load_steps=3 format=3 uid="uid://vu720qjpdh4q"]
+
+[ext_resource type="PackedScene" uid="uid://crha41mrc5gvv" path="res://char/Player/arm_ik.tscn" id="1_25fi8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_25fi8"]
+size = Vector3(0.21, 0.53, 0.4)
 
 [node name="FPV_Rig" type="Node3D"]
+
+[node name="ph_chestpiece" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_25fi8")
+
+[node name="arm_ik" parent="." instance=ExtResource("1_25fi8")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.253874, 0.209698)

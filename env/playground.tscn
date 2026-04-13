@@ -1,11 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://dknkuqa2omuxc"]
+[gd_scene load_steps=4 format=3 uid="uid://dknkuqa2omuxc"]
 
 [ext_resource type="PackedScene" uid="uid://coj4o5mmjqa8a" path="res://env/playground_spawn_area.tscn" id="1_wt17y"]
 [ext_resource type="PackedScene" uid="uid://b7iffuamgx2o" path="res://char/Player/player.tscn" id="2_m8u5f"]
+[ext_resource type="PackedScene" uid="uid://8sf2jdulolb0" path="res://env/playground_walking_area.tscn" id="3_tmqaw"]
 
 [node name="playground" type="Node3D"]
+
+[node name="master-light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9539, 10.7759, 0)
+omni_range = 20.0
+omni_attenuation = -0.303
+
+[node name="playground_spawn_area" parent="." instance=ExtResource("1_wt17y")]
 
 [node name="Player" parent="." instance=ExtResource("2_m8u5f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58953, 0)
 
-[node name="playground_spawn_area" parent="." instance=ExtResource("1_wt17y")]
+[node name="playground_walking_area" parent="." instance=ExtResource("3_tmqaw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5706, 0, 0)

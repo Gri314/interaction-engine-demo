@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://8sf2jdulolb0"]
+
+[node name="playground_walking_area" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(20, 1, 20)

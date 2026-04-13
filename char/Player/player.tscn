@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7iffuamgx2o"]
+[gd_scene load_steps=12 format=3 uid="uid://b7iffuamgx2o"]
 
 [ext_resource type="Script" uid="uid://c0oju17lr7mj0" path="res://scripts/state_engine.gd" id="1_0eaaa"]
 [ext_resource type="Script" uid="uid://dpbfh06yhpvt8" path="res://char/Player/player.gd" id="1_xg7dc"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://eql46n6oavud" path="res://scripts/camera_movement.gd" id="3_m17r5"]
 [ext_resource type="Script" uid="uid://cj1v186wmdp6d" path="res://char/Player/null_state.gd" id="4_hjy0o"]
 [ext_resource type="PackedScene" uid="uid://claxg7ekq0ck" path="res://scenes/states/free_hands_state_engine.tscn" id="8_qxxdn"]
+[ext_resource type="PackedScene" uid="uid://vu720qjpdh4q" path="res://scenes/rigs/fpv_rig.tscn" id="9_wu6py"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
 
@@ -56,12 +57,19 @@ layout_mode = 2
 shape = SubResource("CapsuleShape3D_sh265")
 
 [node name="default_mesh" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("CapsuleMesh_4flbx")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
 
 [node name="View" type="Camera3D" parent="CameraPivot"]
+fov = 80.1
+near = 0.144
+far = 54.29
+
+[node name="FPV_Rig" parent="CameraPivot" instance=ExtResource("9_wu6py")]
+transform = Transform3D(0.0017453, 0, 0.999998, 0, 1, 0, -0.999998, 0, 0.0017453, 0, -0.414553, 0)
 
 [node name="Movement" type="Node" parent="." node_paths=PackedStringArray("Body")]
 script = ExtResource("2_hxndr")
