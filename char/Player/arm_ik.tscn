@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://crha41mrc5gvv"]
+[gd_scene format=3 uid="uid://crha41mrc5gvv"]
 
 [ext_resource type="PackedScene" uid="uid://c63u5svt23mrb" path="res://scenes/rigs/mitten.tscn" id="1_7ddf7"]
 [ext_resource type="Script" uid="uid://sgrbgx4l8a6j" path="res://char/Player/arm_ik.gd" id="1_cmwqv"]
@@ -15,20 +15,20 @@ height = 0.03
 radial_segments = 8
 rings = 4
 
-[node name="arm_ik" type="Node3D"]
+[node name="arm_ik" type="Node3D" unique_id=909306731]
 script = ExtResource("1_cmwqv")
 
-[node name="shoulder" type="Node3D" parent="."]
+[node name="shoulder" type="Node3D" parent="." unique_id=1299110113]
 
-[node name="ph_shoulder" type="MeshInstance3D" parent="shoulder"]
+[node name="ph_shoulder" type="MeshInstance3D" parent="shoulder" unique_id=426165339]
 mesh = SubResource("SphereMesh_cmwqv")
 
-[node name="elbow" type="Node3D" parent="."]
+[node name="elbow" type="Node3D" parent="." unique_id=509323436]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.297703, 0, 0)
 
-[node name="ph_shoulder" type="MeshInstance3D" parent="elbow"]
+[node name="ph_shoulder" type="MeshInstance3D" parent="elbow" unique_id=105917781]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011115, 0, 0)
 mesh = SubResource("SphereMesh_vw6ik")
 
-[node name="hand" parent="." instance=ExtResource("1_7ddf7")]
+[node name="hand" parent="." unique_id=283073078 instance=ExtResource("1_7ddf7")]
 transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1, 0.599125, 0, 0)
